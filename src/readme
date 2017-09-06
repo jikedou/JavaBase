@@ -1,0 +1,858 @@
+变量类型
+	基本数据类型
+		数值
+			整型
+				byte(1) 256 [-128,127]
+				short(2) 65536 [-32768,32767]
+				int(4) 2^32 21亿
+				long(8) 2^64
+			浮点型
+				float(4) 2^127
+				double(8) 2^102
+				有时候不能完整的表达一个浮点数，有可能内部计算的时候取近似值
+			字符型
+				char(2) 65535 ''  '中'  'z'
+				asc A 65 a 72 0 48
+			布尔型
+				boolean(1位) 0/1 true/false
+	引用数据类型
+			Stirng "" 
+			
+	全局变量声明的时候有默认值
+	局部变量在使用之前必须要给予默认值
+	参数（相当于一个局部变量 ）
+			
+------------------------------------------------------
+				
+	原码
+		将10进制转换成2进制
+			10->0000 1010
+			-10->1000 1010
+	反码
+		10+5=10+(-5)
+-------------------------------------------------------------------
+_3oop
+	静态属性
+	动态属性
+	
+--------------------------------------------
+内存分析
+	栈内存 
+		快速 ，连续的空间
+		必须知道大小，知道生命周期
+			一般存放基础数据类型
+	堆内存
+		链式的结构，灵活的控制内存的分配
+	方法区
+		类的字节码信息
+		静态变量
+		字符串常量
+		
+	基本数据类型
+		
+	引用数据类型
+		引用
+
+this
+	全局变量和局部变量能否重名
+		当使用变量的时候，采用就近原则
+		
+	1.尽量不要重名，但为保证见名知意，前面加_
+	2.借助关键字this
+		普通方法中,this指向调用该方法的对象
+		构造方法中,this指向正要初始化的对象
+		this不能用于static方法
+	
+		调用构造器必须在第一行
+		构造器调用构造器的时候只能调用一次 
+		
+	----
+	this,看上去是为了区分全局变量和局部变量重名情况
+	this,就代表它所在函数所属对象的引用（哪个对象在调用this所在的函数，this就代表哪个对象）
+	---
+	this的应用
+		1当定义类中函数时，该函数内部要用到调用该函数的对象时，这是用this来表示这个对象。
+		但凡本类功能内部使用了本类对象，都用this表示
+		
+		2用于构造函数之间进行相互调用
+		this语句只能定义在构造函数的第一行。因为初始化要先执行
+		
+static
+	在类中，用static声明的成员变量为静态成员变量或类变量，类属性
+		他属于类的公共变量，隶属于类并且被类的所有实例共享，在类被载入时被显示初始化
+		对于该类的所有对象来说，static成员变量只有一份，被该类所有实例共享
+			可以使用对象.类属性，来调用，不过一般是类名.类属性
+		static变量置于方法区	
+	用static声明的方法为静态方法
+		不需要对象就可以调用（类名.方法名）
+		在调用该方法时，不会将对象的引用传递给他，所以在static方法中不可访问非static的成员
+	
+	 不能在静态方法中使用this！！！
+	 
+	平常的属性都依赖于对象
+	我们需要一个变量让他依赖于类
+	--------
+	特点：
+	1随着类的加载而加载
+		也就是说：静态会随着类的消失而消失， 说明它的生命周期最长 
+	2优先于类的对象存在
+		明确静态是先存在的，对象是后存在的
+	3被所有对象所共享
+	4可以直接被类名所调用
+	
+	
+	实例变量和类变量的区别
+		1存放位置
+			类变量随着类的加载而存在于方法区中
+			实例变量随着对象的建立而存在于堆内存中
+		2生命周期	
+			类变量生命周期最长，随着类的消失而消失
+			实例变量生命周期随着对象的消失而消失
+			
+	静态使用注意事项
+		1静态方法只能访问静态成员（成员包括方法和变量）
+			非静态方法既可以访问静态也可以访问非静态
+		2静态方法中不可以定义this，super关键字
+			因为静态优先于对象存在，所以静态方法不可以出现this
+		3主函数是静态的
+			
+			
+	静态利弊
+		利处：对对象的共享数据进行单独空间的存储，节省内存
+			可以直接被类名调用
+		弊端：生命周期过长
+			访问出现局限性（静态虽好，只能访问静态）	
+			
+			
+			
+main方法
+	public static void main(String[] args)
+	main方法，是一个特殊的函数，作为程序入口，可以被jvm调用
+	主函数的定义：
+		public：代表该函数的访问权限是最大的
+		static：代表主函数随着类的加载就已经存在了
+		void：主函数没有具体的返回值
+		main：不是关键字，但是是一个特殊的单词，可以被jvm识别
+		(String[] args)：函数的参数，参数类型是一个数组，该数组中的元素是字符串（就是字符串数组）
+		
+		主函数是固定格式的，jvm识别
+		jvm在调用主函数时，传入的是new Stirng[0]
+				
+什么时候使用静态
+	从两方面（静态修饰的是成员变量和函数）
+	1什么时候定义静态变量？
+		当对象中出现共享数据时，该数据被静态所修饰
+		对象中的特有数据要定义成非静态存在于堆内存中
+	2什么时候定义静态函数？
+		当功能内部没有访问到非静态数据（对象的特有数据）
+		那么该功能可以定义为静态的 
+	
+	
+静态代码块
+	格式
+		static{
+			静态代码块中的执行语句
+		}
+		
+	特点：
+		随着类的加载而执行，只执行一次，用于给类初始化 
+		
+  	静态隶属于类
+  	jvm不会直接加载所有的类，只加载被调用的类，先执行静态代码块
+	   因为类只被加载一次，所以静态代码块只能执行一次
+	  
+	  如果希望加载后，对整个类进行初始化操作，可以使用static初始化块
+	 是在类初始化执行，不是在创建对象时执行
+	 静态初始化块中不能访问非static成员
+	  执行顺序
+	  
+	  构造方法是为了初始化对象，静态代码块是为了初始化类
+	  
+	  静态代码块中不能出现非静态成员
+
+继承
+	通过继承，子类自动拥有了基类的所有成员（成员变量和方法）
+	java只支持单继承，不允许多继承（C++允许多继承）
+		一个子类只能有一个基类，一个基类可以派生出很多个子类
+
+权限控制
+	private		同一个类能访问
+	default		只可以同一个包中内部的类能够访问
+	protected	子类能访问
+	public		任意地方都能访问，无限制
+重写（overwrite或者override）
+	1在子类中可以根据需要对从基类中继承的方法进行重写
+	2重写方法必须和被重写的方法具有相同方法名称、参数列表和返回类型
+	3重写方法不能使用比被重写方法更严格的访问权限
+super
+		
+继承之中的构造方法[规则]，一定要背会理解！！！！！！！！！！！！！！！！！！！！！！！！！！！
+	子类的构造过程中！！！必须!!!调用其基类(父类)的构造方法
+	子类可以在自己的构造方法中使用super(argument_list)调用基类的构造方法
+		1使用this(argument_list)调用本类的另外的构造方法
+		2如果调用了super，必须写在子类构造方法的第一行！！！！！！
+	如果子类的构造方法中没有显示的调用基类构造方法，则系统默认调用基类无参的构造方法
+	如果子类构造方法中既没有显示调用基类构造方法，而基类中有没有无参的构造方法，则编译出错
+	
+Object类	
+	是所有java类的根基类
+	如果在类的生命中未使用extends关键字指明其基类，则默认基类为Object类
+		public class Person{
+			....
+		}
+		等价用于：
+		public class Person extends Object{
+			....
+		}
+	toString方法可以被重写
+	
+		Object中定义有public String toString()方法，其返回值是String类型，描述当前对象的有关信息
+		在进行Sting与其他类型数据的连接操作时（如：System.out.println("info"+person)），将自动调用该对象的toString()方法
+		可以根据需要在用户自定义类型中重写toString方法
+	
+	equals
+		public boolean equals(Object o)方法
+			提供定义对象是否“相等”的逻辑
+		x.equals(y)  当x和y是同一个对象的应用时，返回true，否则返回false
+		可以根据需要重写equals方法
+对象转型（casting）
+	一个基类的引用类型变量可以“指向”其子类的对象
+	一个基类的引用不可以访问其子类对象新增加的成员（属性和方法）
+	可以使用  引用 变量 instanceof 类名  来判断该引用性变量所“指向”的对象是否属于该类或该类的子类
+	子类的对象可以当做基类的对象来使用称作向上转型（U盘casting），反之成为向下转型（downcasting）
+	
+动态绑定和多态	
+	动态绑定是指在执行期间（而非编译期）判断所引用对象的实际类型，根据其实际的类型调用其相应的方法
+		多态的存在有三个必要条件
+			1、要有继承
+			2、要有重写
+			3、父类引用指向子类对象
+			当调父类里边被重写的方法时，实际new的是哪个子类对象，就调用哪个子类对象的方法
+	
+抽象类abstract	
+	 1用absract关键字修饰一个类时，这个类叫做抽象类
+	 	用abstract修饰一个方法时，这个方法叫做抽象方法
+	 
+	 2含有抽象方法的类必须被声明为抽象类，抽象方法必须被重写
+	 3抽象类不能被实例化
+	 4抽象方法只需声明，而不需实现
+	
+	
+	
+	
+	
+	
+	
+	
+	
+设计模式
+	单例设计模式
+		
+
+			
+	
+				
+
+final
+    1final修饰的值不能被改变
+        final修饰的成员变量和局部变量（形参）
+    2final修饰的方法不能被重写
+    3final修饰的类不能被继承
+
+interface接口
+    接口，是抽象方法和常量值的定义的集合
+    从本质上讲，接口是一种特殊的抽象类，
+        这种抽象类中只包含常量和方法的定义，而没有变量和方法的实现
+    接口定义举例
+        public interface Runner{
+            public static final int id=1;//public static final
+            public void start();
+            public void run();
+            public void stop();
+        }
+    接口特性：
+        1接口可以多重实现
+        2接口中声明的属性默认为public static final的;也只能是public static final的
+        3接口中只能定义抽象方法，而且这些方法默认为public的，也只能是public的
+        4接口可以继承其他的接口，并添加新的属性和抽象方法
+
+        1多个无关的类可以实现同一个接口
+        2一个类可以实现多个无关的接口
+        3与继承关系类似，接口与实现类之间存在多态性
+        定义Java类的语法格式
+            <modifier> class <name> [extends <superclass>] [implements <interface>[,<interface>]*]{
+                <declarations>*
+            }
+
+=======================================================
+异常
+        《《运行期》》出现的错误，执行期-------（如数组下标越界，读取的文件不存在，除0溢出）
+        观察错误的名字和行号最重要，并且要敢于调试
+        程序是调出来的
+    抛出异常
+        java程序的执行过程中如出现异常事件，可以生成一个异常类对象，该异常类对象封装异常事件的信息并将被提交给java运行时系统
+    捕获异常
+        当java运行时系统接收到异常对象时，会寻找能处理这一异常的代码并把当前异常对象交给其处理
+
+    try     有可能会产生异常的语句
+    catch   当异常出现时我应该怎么办
+    分类
+        Throwable 可以被抛出的类
+            1.error 系统的错误 虚拟机的错误，我们处理不了
+            2.exception 可以处理的
+                1.RuntimeException 经常出的,不用catch
+                2.其他错误  需要被catch的exception
+
+            解释
+                error：称为错误，由java虚拟机生成并抛出，包括动态链接失败、虚拟机错误等，程序对其不做处理
+                exception：所以异常类的父类，其子类对应了各种各样可能出现的异常事件，一般需要用户显式的声明或捕获
+                    runtimeexception：一类特殊的异常（如被0除，数组下标越界），其产生比较频繁，处理麻烦
+                        如果显式的声明或捕获将会对程序可读性和运行效率影响很大
+                        因此有系统自动检测并将他们交给缺省的异常处理程序（用户可不必对其处理）
+    try...catch
+    	一个try可以有很多个catch
+    	
+    	try{
+    		//可能抛出异常的语句	
+    	}catch(Some Exception1 e){
+    		......
+    	}catch(Some Exception1 e){
+    		......
+    	}catch(Some Exception1 e){
+    		......
+    	}finall{
+    		......
+    	}
+    	1try代码段包含可能产生异常的代码
+    	2try代码段后跟有一个或多个catch代码段
+    	3每个catch代码段声明其能够处理的一种特定类型的异常并提供处理的方法
+    	4当异常发生时，程序会终止当前的流程，根据获取异常的类型去执行相应的catch代码段
+    	5finally段的代码无论是否发生异常都有执行
+    	6如果没有例外产生，所有catch代码段都被略过不执行
+    	
+    	在catch语句块中可以使用这个对象的一些方法获取这些信息
+    		如：getMessage()方法，用来得到有关异常事件的信息
+    		   printStachTrace()方法啊，用来跟踪异常事件发生时执行堆栈的内容	
+  
+    finally语句
+    	finally语句为异常处理提供一个统一的出口，使得在控制流程转到程序的其他部分之前，能够对程序的状态作统一的管理
+    	无论try所指定的程序块中是否抛出例外，finally所指定的代码都要被执行
+    	通常在finally语句中可以进行资源的清除工作
+    		如：1关闭打开的文件 2删除临时文件 3.。。。
+	异常的捕获与处理
+		try{
+			...
+		}catch(Exception e){
+			...
+		}catch(SomeException e){
+			...
+		}
+		以上代码会有编译错误，后边的异常不会被捕获，在一个tr|y语句块中，基类异常的捕获语句不可以写在子类异常捕获语句的上面
+	使用自定义的异常一般有如下步骤
+		1通过集成java.lang.Exception类声明自己的异常类
+		2在方法合适的位置生成自定义异常的实例，并用throw语句抛出
+		3在方法的声明部分用throws语句声明该方法可能抛出的异常	
+	声明并抛出异常（异常与重写的关系）
+		注意：重写方法需要抛出与原方法所抛出异常类型一致异常或者不抛出异常
+	异常总结
+		一个图
+		五个关键字
+		先逮小的，再逮大的
+		异常和重写的关系
+    	
+ ========================================================================
+ 数组
+ 	 概述
+ 	 	数组可以看成是多个相同类型数据组合，对这些数据的统一管理
+ 	 	数组变量属于引用类型，数组也可以看成是对象，数组中的每个元素相当于该对象的成员变量
+ 	 	数组中的元素可以是任何数据类型，包括基本类型和引用类型
+ 	 	
+ 	 	Java中声明数组不能指定其长度（数组中元素的个数）
+ 	 		int a[5];//非法，因为java里边是分配到堆上的
+ 	 	数组对象的创建
+ 	 		数组名 =new 数组元素的类型[数组元素的个数]
+ 	 	注意：元素为引用数据类型的数组中的每一个元素都需要实例化
+	数组初始化
+		动态初始化
+			数组定义与为数组元素分配空间和赋值的操作分开进行
+		静态初始化
+ 	 		在定义数组的同时就位数组元素分配空间并赋值
+	数组元素的默认初始化
+		数组是引用类型，它的元素相当于类的成员变量，因此数组分配空间后，每个元素也被按照成员变量的规则被隐式初始化
+	
+	数组元素引用
+		a[0]、a[1]...
+		每个数组都一个《《属性》》length指明它的长度  a.length
+		
+		使用for循环遍历数组中每一个元素 		
+ 	 	System.exit(-1);//系统非正常退出，终止当前正在运行的 Java 虚拟机
+ 	 	System.exit(0);//系统正常退出
+ 	二维数组
+ 	 	二维数组可以看成是以数组为元素的数组
+ 	 	    int a[] []={{1,2},{3,4,5},{6,7,8}};
+        java中多维数组的声明和初始化应按从高维到低维的顺序进行，例如：
+            int a[][]=new int [3][];
+            a[0]=new int[2];
+            a[1]=new int[4];
+            a[3]=new int[3];
+
+            int t1[][]=new int [][4];//这是非法的
+        二维数组初始化
+            静态初始化
+                int A[][]={{1,2},{3,4,5},{6,7,8}};
+                int b[3][2]={{1,2},{3,4,5},{6,7,8}};//非法
+            动态初始化
+                int a[][]=new int [3][];
+                a[0]=new int[2];
+                a[1]=new int[4];
+                a[3]=new int[3];
+                int b[][]=new int[3][5];
+常用类
+    字符串相关类
+        String
+            java.lang.String类代表不可变的字符序列
+            String类的常见构造方法
+                String(String original)
+                    创建一个String对象为original的拷贝
+                String(char[] value)
+                    用一个字符数组创建一个String对象
+                String(char[] value,int  offset,int count)
+                    用一个字符数组从offset项开始的count个字符序列创建一个String对象
+
+                public char charAt(int index)
+                    返回字符串中第index个字符
+                public int length()
+                    返回字符串的长度
+                public int indexOf(String str)
+                    返回字符串中出现str的第一个位置
+                public int indexOf(Stirng str,int fromIndex)
+                    返回字符串中从fromIndex开始出现str的第一个位置
+                public boolean equalsIgnoreCase(String another)
+                    比较字符串与another是否一样（忽略大小写）
+                public String replace(char oldChar,char newChar)
+                    在字符串中用newChar字符替换oldChar字符
+
+                。。。。。
+
+            valueOf()
+ 	 	        System.out.println(String.valueOf(dog));//等同于dog的toString方法
+                System.out.println(dog.toString());
+                
+			 判断字符串中的英文大小写个数
+			 	可以遍历字符串中的每一个字符
+				然后做判断，每个字符与'a''z''A''Z'作比较，可以然后确认是大写就++，小写就++，每种情况统计个数
+		
+		
+		StringBuffer 缓冲区
+			StringBuffer可变的字符序列，而String代表不可变的字符序列
+			StringBuffer与String类似，但是StringBuffer可以对其字符串进行改变
+			StringBuffer类常见的构造方法
+				StringBuffer()
+					创建一个不包含字符序列的“空”的StringBuffer对象
+				StringBuffer(String str)
+					创建一个StringBuffer对象，包含与String对象str相同的字符序列
+				sb.append();//将 某某参数（各种类型的参数）的字符串表示形式追加到序列。
+				sb.reverse();// 倒序排列,后返回
+				sb.delete(int start, int end);//移除此序列的子字符串中的字符
+				sb.insert(int offset, boolean b)//将 boolean参数（也有其他类型的）的字符串表示形式插入此序列中。
+				
+		基础数据类型包装类		
+			包装类（如Integer，Double等）这些类封装了一个相应的基本数据类型数值，并为其提供了一系列操作
+			以java.lang.Integer类为例；构造方法：
+				Integer(int value)
+				Integer(String s)
+				
+			========================================	
+			总结：写程序有时候不能一气呵成，但是不能一句不写
+	 		要想到哪里写到哪里，编写边改， 编写边调试
+	 		切记，不能眼高手低！！！
+	 		========================================
+			 
+		Math类
+		    java.lang.Math提供了一系列静态方法用于科学计算
+		    其方法的参数和返回值类型一般为double型
+
+		    	 abs 绝对值
+		    	 sqrt 平方根
+		    	 pow(double a ,double b) a的b次幂
+		    	 log 自然对数
+		    	 max(double a,double b)	 a、b中的较大值
+		    	 min(double a,double b)	 a、b中的较小值
+                 random() 返回0.0到1.0的随机数
+                 round(double d)四舍五入
+		File类
+			常见构造方法
+			    public File(String pathname)
+			        以pathname为路径创建File对象，如果pathname是相对路径，则默认的当前路径在系统属性user.dir中存储
+			    public File(String parent,String child)
+			        以parent为父路径，child为子路径创建File对象
+                File的静态属性String separator存储了当前系统的路径分隔符
+			通过File对象可以访问文件的属性
+			    public boolean canRead(),canWrite(),exists(),isDirectory(),isFile(),isHidden()
+			    public long lastModified(),length()
+			    public String getName(),getPath()
+            通过File对象创建空文件或目录（在该对象所指的文件或目录不存在情况下）
+                public boolean createNewFile() throws IOException  //创建新文件
+                public boolean delete()
+                public boolean mkdir()  //创建新文件夹
+                public boolean mkdirs()  //创建新文件夹s
+
+            遍历文件
+                String pathname = "e:/game";
+                File file = new File(pathname);
+                String[] list = file.list();
+                System.out.println("file.list()-------" + list[1]);//我的世界
+                File[] files = file.listFiles();
+                System.out.println("file.listFiles()-------" + files[1]);//e:\game\我的世界
+        Enum枚举类型
+            ------只能够取特定值中的一个------
+            使用enum关键字
+            是java.lang.Enum类型
+
+=================================================================
+
+容器
+    概念1136-----1个图  1个类  3个知识点  6个接口
+        Collection(接口)，一个一个往里装东西
+            Set(接口)，数据对象没有顺序，不可重复
+                HashSet
+            List(接口)，数据对象有顺序，可以重复
+                LinkedList
+                ArrayList
+        Map(接口)，一对一对往里装东西，定义了存储"key-value"映射对的方法
+            HashMap
+
+            Collection接口中所定义的方法
+                int size()
+                boolean isEmpty()
+                void clear()
+                boolean contains(Object o)
+
+                父类的引用指向子类对象，不能访问子类特有的东西
+
+        Collection接口中定义的方法
+            int size();
+            boolean isEmpty();
+            void clear();//从此集合中删除所有元素
+            boolean contains (Object o);//如果此集合包含指定的元素，则返回 true
+            boolean add(Object o);
+            boolean remove(Object o);
+            Iterator iterator();
+            boolean containsAll(Collection c);//如果此集合包含指定 集合中的所有元素，则返回true。
+            boolean addAll(Contain c);
+            boolean removeAll(Collection c);
+            boolean retainAll(Collection c);//仅保留此集合中包含在指定集合中的元素
+            Object[] toArray();
+
+            容器类对象在调用remove contains等方法时需要比较对象是否相等，这会涉及到对象类型的equals方法和hashCode方法；对于自定义的类型，需要重写equals和hashCode方法以实现自定义的对象相等原则
+                注意：相等的对象应该具有相等的hashCode
+            重写equals方法必须重写hashCode方法
+
+        Iterator接口
+            所有实现Collection接口的容器类都有一个iterator方法用以返回一个实现了Iterator接口的对象
+            Iterator对象称作迭代器，用以方便的实现对容器内元素的遍历操作
+            Iterator接口定义了如下方法：
+                boolean hasNext();//判断右边右边是否有元素
+                Object next();//返回游标右边的元素并将游标移动到下一个位置
+                void remove();//删除游标左边的元素，在执行完next之后，该操作只能执行一次
+
+        增强for循环
+            1.5以后才有
+                int[] arr1 = {6, 5, 4, 3, 2, 1};
+                for (int i : arr1) {
+                    System.out.println(i);
+                }
+            对于遍历array或者Collection的时候非常方便
+            缺陷：
+                数组：不能方便的访问下标值
+                集合：与使用Iterator相比，不能方便的删除集合中的内容
+                    在内部也是调用Iterator
+            总结：除了简单遍历并读出其中的内容外，不建议使用增强for
+
+        Set
+            Set接口是Collection的子接口，Set接口没有提供额外的方法，但实现Set接口的容器类中的元素是没有顺序的，而且不可以重复
+            Set容器可以与数学中“集合”的概念相对应
+			            提供的Set容器类有HashSet、TreeSet等
+
+        List
+            List接口是Collection的子接口，实现List接口的容器类中的元素是有顺序的，而且可以重复
+            List容器中的元素都对应一个整数型的序号记载其在容器中的位置，可以根据序号存取容器中的元素
+            	提供的List容器有ArrayList(底层以数组实现) LikedList(底层以链表实现)等
+                get(int index);
+                set(int index,Object o);//将下标为index的值返回，并将下标为index的值设置为o
+                add(int index,Object o);
+                remove(int index);//删除下标为index的值
+                indexOf(object o);
+                lastIndexOf(Object o);
+
+            List常用算法
+                sort(List); //对list的元素进行排序
+                shuffle(list);//对list的元素进行随机排序
+                reverse(List);//对list的元素进行逆序排序
+                fill(List，Object);//用一个特定的对象重写整个List容器
+                copy(List dest,List src);//将src list容器内容拷贝到dest list容器中
+                int binarySearch(List ,o);//对于顺序的List容器，采用折半查找方法查找特定对象
+
+        Collections  是一个类
+        Comparable 接口
+        	所有可以“排序”的类都实现了java.lang.Comparable接口，Comparable接口只有一个方法
+        		public int Comparable(Object o);
+        			返回   0  表示this==o
+        			返回正数表示this>o
+        			返回负数表示this<o
+    			实现了Comparable接口的类通过实现comparaTo方法从而确定该类对象的排序方式
+    			
+    			
+		如何选择数据结构
+			衡量标准：读的效率和改的效率
+				ArrayList读快改慢
+				LinkedList改快读慢
+				Hash两者之间
+		Map接口
+			实现Map接口的类用来存储键值对
+			Map接口实现类有HashMap和TreeMap
+			Map类中存储的键值对通过键来标识，所以键值不能重复	
+			方法：
+				put(key,value);添加map中的元素，或者更改元素，返回值为value更改前的值
+				get(key);
+				remove(key);
+				boolean containsKey(key);查看map中是否有key值为time的
+				boolean containsValue(value);
+				int size();
+				boolean isEmpty();
+				void putAll(Map t);//把t全部放到map中
+				void clear();
+				
+		Auto-boxing  Unboxing
+			在合适的时机自动打包，解包
+				自动将基础类型转换为对象
+				自动将对象转换为基础类型
+				
+				map中放的都是对象
+					// int i=map.get("age");//此时拿到的是一个对象，需要转换类型
+					int i=(Integer)map.get("age");//这样就行了
+		
+		泛型 1.5
+			起因：
+				jdk1.4以前类型不明确
+					装入集合的类型都被当做Object对待，从而失去自己的实际类型
+					从集合中取出时往往需要转型，效率低，容易产生错误
+			解决办法
+				在定义集合的时候同时定义集合中对象的类型
+					可以在定义Collection时指定
+					也可以在循环时用Iterator指定
+			好处
+				增强程序的可读性和稳定性
+				
+		以后使用到集合的时候，尽量使用泛型
+		
+		总结：	1136
+			1个图
+			1个类
+				Collections
+			3个知识点
+				For  增强for循环
+				Generic  泛型  重要
+				Auto-boxing unboxing 自动打包 解包
+			6个接口
+				Collection
+					Set
+					List
+					Map
+					Iterator
+					Comparable
+========================================================
+流  IO
+	java流式输入/输出原理
+	java流类的分类
+	输入/输出流类
+	常见的节点流和处理流
+	文件流
+	缓冲流
+	数据流
+	转换流
+	Print流
+	Object流
+
+	流：用来读取数据的，通过流的方式
+	java.io包中定义了多个流类型（类或抽象类）来实现输入/输出功能
+	可以从不同的角度对其进行分类：
+		按数据流的方向不同可以分为输入流和输出流
+		按处理数据单位不同可以分为字节流和字符流（一个字符两个字节）
+		按照功能不同可以分为节点流和处理流
+		
+					字节流		字符流
+		输入流	InputStream		Reader
+		输出流	OutputStream	Writer
+		
+		
+	InputStreanm
+		继承自InputStream的流的都是用于向程序中输入数据，且数据的单位为字节(8bit)
+			带==的是节点流，没有的是处理流
+		InputStream
+			==FileInputStream
+			==PipedInputStream
+			FilterInputStream
+				LineNumberInputStream
+				DataInputStream
+				BufferedInputStream
+				PushbackInputStream
+			==ByteArrayInputStream
+			SequenceInputStream
+			==StringBufferInputStream
+			ObjectInputStream
+			
+				int read()
+					读取一个字节并以整数的形式返回（0-255）
+					如果返回-1说明已读到输入流的末尾
+				int read(byte[] buffer)
+					读取一系列字节并存储到一个数组buffer
+					返回实际读取的字节数，如果读取前已到输入流的末尾返回-1
+				int	read(byte[] buffer,int offset,int length)		
+					读取length个字节，并存储到一个字节数组buffer，
+					从length位置开始，返回实际读取的字节数，如果读取前已到输入流的末尾返回-1
+				void close()
+					关闭流释放内存资源
+				long skip(long n)//不常用
+					跳过n个字节不读，返回实际跳过的字节数
+		OutputStream
+			继承自OutputStream的流是用于程序中输出数据，且数据的单位为字节(8bit)
+				带==的是节点流，没有的是处理流
+			OutputStream
+				==FileOutputStream
+				==PipedOutputStream
+				FilterOutputStream
+					DataOutputStream
+					BufferedOutputStream
+					PrintStream
+				==ByteArrayOutputStream
+				ObjectOutputStream
+				
+				void write(int b)
+					向输出流中写入一个字节数据，该字节数据为参数b的第8位
+				void write(byte[] b)
+					将一个字节类型的数组中的数据写入输出流
+				void write(byte[] b,int off,int len)
+					将一个字节类型的数组中的从指定位置（off）开始的len个字节写入到输出流
+				void close()
+					关闭流释放内存资源
+				void flush()
+					将输出流中缓冲的数据全部写出到目的地
+					
+					良好的编程方式应先写flush再写close
+		Reader
+			继承自Reader的流都是用于向程序中输入数据，且数据的单位为字符（16bit）
+				带==的是节点流，没有的是处理流
+			Reader
+				BufferedReader
+					LineNumberReader
+				==CharArrayReader
+				InputStreamReader
+					==FileReader
+				FilterReader
+					PushbackReader
+				==PipedReader
+				==StringReader
+			
+				int read()
+					读取一个字符并以整数的形式返回（0-255）
+					如果返回-1说明已读到输入流的末尾
+				int read(byte[] buffer)
+					读取一系列字符并存储到一个数组buffer
+					返回实际读取的字符数，如果读取前已到输入流的末尾返回-1
+				int	read(byte[] buffer,int offset,int length)		
+					读取length个字符，并存储到一个字节数组buffer，
+					从length位置开始，返回实际读取的字符数，如果读取前已到输入流的末尾返回-1
+				void close()
+					关闭流释放内存资源
+				long skip(long n)//不常用
+					跳过n个字符不读，返回实际跳过的字符数
+		Writer
+			继承自Writer的流是用于程序中输出数据，且数据的单位为字符(16bit)
+				带==的是节点流，没有的是处理流
+			Writer
+				BufferedWriter
+				==CharArrayWriter
+				OutputStreamWriter
+					==FileWriter
+				FilterWriter
+				==PipedWriter
+				==StringWriter
+				
+				void write(int b)
+					向输出流中写入一个字符数据，该字符数据为参数b的第16位
+				void write(char[] b)
+					将一个字符类型的数组中的数据写入输出流
+				void write(char[] b,int off,int len)
+					将一个字符类型的数组中的从指定位置（off）开始的len个字节写入到输出流
+				void write(String s)
+					将一个字符串的字符写入到输出流
+				void write(String string,int off,int len)
+					将一个字符串从指定位置（off）开始的len个字符写入到输出流
+				void close()
+					关闭流释放内存资源
+				void flush()
+					将输出流中缓冲的数据全部写出到目的地
+					
+					良好的编程方式应先写flush再写close
+		缓冲流
+			缓冲流要“套接”在相应的节点流之上，对读写的数据提供了缓冲的功能，提高了读写的效率，同时增加了 一些新的 方法
+				可显著的减少io次数，保护硬盘
+			J2SK提供了四种缓存流，其常用的构造方法为：
+			BufferReader(Reader in)
+			BufferReader(Readin in,int sz);//sz为自定义缓存区的大小
+			BufferWriter(Writer out)
+			BufferWriter(Writer out,int sz);
+			BufferInputStream(InputStream in);
+			BufferInputStream(InputStream in,int sz);
+			BufferOutputStream(OutputStream out);
+			BufferOutputStream(OutputStream out ,int sz);
+			
+			缓冲输入流支持其父类的mark和reset方法
+			BufferReader提供了readLine方法用于读取一行字符串（以\r或\n分隔）
+			BufferWriter提供了newLine用于写入一个行分隔符
+			对于输出的缓冲流，写出的数据会先在内存中缓冲，使用flush方法将会使内存中的数据立刻写出
+
+		转换流
+                    InputStreamReader和outputStreamWriter用与字节数据到字符数据之间的转换
+                    InputStreamReader需要和InputStream”套接“
+                    OutputStreamWriter需要和OutputStream”套接“
+                    转换流在构造是可以指定其编码集合
+                        InputStream isr =new InputStreamReader(System.in,"ISO8859-1");
+
+
+                    阻塞式方法
+
+        	    数据流
+        	        DataInputStream和DataOutputStream分别继承自InputStream和OutputStream，它属于处理流，需要分别“套接”在InputStream和OutputStream类型的节点流上
+                    DataInputStream和DataOutputStream提供了可以存取与机器无关的java原始类型数据（如int，double等）的方法
+                    DataInputStream和DataOutputStream的构造方法为：
+                        DataInputStream(InputStream in)
+                        DataOutputStream(OutputStream out)
+
+                Print流
+                    PrintWriter和PrintStream都属于输出流，分别针对与字符和字节
+                    PrintWriter和PrintStream提供了重载的print
+                        Println方法用于多种数据类型的输出
+                    PrintWriter和PrintStream的输出操作不会抛出异常，用户通过检测错误状态获取错误信息
+                    PrintWriter和PrintStream有自动flush功能
+                        PrintWriter(Writer out)
+                        PrintWriter(Writer out,boolean autoFlush)
+                        PrintWriter(OutputStream out)
+                        PrintWriter(OutputStream out,boolean autoFlush)
+                        PrintStream(OutputStream out)
+                        PrintStream(OutputStream out,boolan autoFlush)
+
+
+	
+								
+				
+		
+		
+			
+					
+				
+		
+        	
+
+
