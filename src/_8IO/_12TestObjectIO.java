@@ -37,7 +37,7 @@ public class _12TestObjectIO {
 /**
  * Test需要实现序列化接口，否则会报  java.io.NotSerializableException  异常
  */
-class Test {
+class Test implements Serializable {
     String name = "zhangsan";
     int age=18;
     double weight = 20.5;
