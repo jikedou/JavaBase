@@ -843,8 +843,11 @@ interface接口
                         PrintStream(OutputStream out)
                         PrintStream(OutputStream out,boolan autoFlush)
 
-
-	
+                Object流
+                    直接将Object写入或读出
+                        transient关键字
+                        serializable接口  标记性接口，打标记给编译器，没有定义方法
+	                    externalizable接口
 								
 				
 		
