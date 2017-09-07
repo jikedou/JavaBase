@@ -18,10 +18,10 @@ public class _12TestObjectIO {
             FileInputStream fis = new FileInputStream("d:/javatestfiles/ObjectIO.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            Test ttt =(Test)ois.readObject();
-            System.out.println("ttt.age="+ttt.age);
-            System.out.println("ttt.name="+ttt.name);
-            System.out.println("ttt.weight="+ttt.weight);
+            Test ttt = (Test) ois.readObject();
+            System.out.println("ttt.age=" + ttt.age);
+            System.out.println("ttt.name=" + ttt.name);
+            System.out.println("ttt.weight=" + ttt.weight);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -39,6 +39,6 @@ public class _12TestObjectIO {
  */
 class Test implements Serializable {
     String name = "zhangsan";
-    int age=18;
+    int age = 18;
     double weight = 20.5;
 }
