@@ -21,7 +21,7 @@ public class _12TestObjectIO {
             Test ttt = (Test) ois.readObject();
             System.out.println("ttt.age=" + ttt.age);
             System.out.println("ttt.name=" + ttt.name);
-            System.out.println("ttt.weight=" + ttt.weight);
+            System.out.println("ttt.weight=" + ttt.weight);//transient修饰的话，值就变成默认值了
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -40,5 +40,5 @@ public class _12TestObjectIO {
 class Test implements Serializable {
     String name = "zhangsan";
     int age = 18;
-    double weight = 20.5;
+    transient double weight = 20.5;//transient修饰的成员变量在序列化的时候不予考虑
 }

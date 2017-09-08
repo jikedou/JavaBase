@@ -845,10 +845,15 @@ interface接口
 
                 Object流
                     直接将Object写入或读出
-                        transient关键字
+                        transient关键字(短暂的，瞬态，瞬时的)————————修饰的成员变量在序列化的时候不予考虑
                         serializable接口  标记性接口，打标记给编译器，没有定义方法
-	                    externalizable接口
-								
+	                    externalizable接口（ 是serializable的子接口）
+	                        定义了两个方法
+	                            readExternal()
+	                            writeExternal()
+
+===================================================================================================
+线程
 				
 		
 		
