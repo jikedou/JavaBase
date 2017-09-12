@@ -870,6 +870,41 @@ interface接口
         可以通过创建Thread的实例来穿件新的线程
         每个线程都是通过某个特定Thread对象所对应的方法run()来完成其操作的，方法run()称为线程体
         通过调用Thread的start()方法来启动一个线程
+
+        ======什么叫方法调用，什么叫线程启动
+
+        创建线程有两种方式
+            1.继承Thread类（实际上Thread类也实现了Runnable方法）
+                class PrimeThread extends Thread {
+                     long minPrime;
+                     PrimeThread(long minPrime) {
+                         this.minPrime = minPrime;
+                     }
+
+                     public void run() {
+                         // compute primes larger than minPrime
+                          . . .
+                     }
+                 }
+                 下列代码会创建并启动一个线程：
+                  PrimeThread p = new PrimeThread(143);
+                  p.start();
+            2.实现Runnable接口
+                class PrimeRun implements Runnable {
+                     long minPrime;
+                     PrimeRun(long minPrime) {
+                         this.minPrime = minPrime;
+                     }
+
+                     public void run() {
+                         // compute primes larger than minPrime
+                          . . .
+                     }
+                 }
+                下列代码会创建并启动一个线程：
+                 PrimeRun p = new PrimeRun(143);
+                 new Thread(p).start();
+
 		
 			
 					
