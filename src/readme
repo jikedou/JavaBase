@@ -936,4 +936,14 @@ interface接口
             yield方法
                 让出CPU,给其他线程执行的机会
 
+        线程的优先级别
+             java提供一个线程调度器来监控程序中启动后进入就绪状态的所有线程
+                线程调度器按照线程的优先级决定应调度哪个线程来执行
+            线程的优先级用数字表示，范围从1到10，一个线程的缺省优先级是5
+                Thread.MIN_PRIORITY=1
+                Thread.MAX_PRIORITY=10
+                Thread.NORM_PRIORITY=5
+            使用下述方法获得或者设置线程对象的优先级
+                int getPriority();
+                void setPriority(int newPriority);
 
