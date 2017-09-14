@@ -932,6 +932,7 @@ interface接口
                     Thread.sleep()
             join方法
                 合并某个线程
+                mt2.join();//join方法可以把mt2合并到主线程中，即按照顺序来，mt2执行完了，才可以继续主线程
             yield方法
                 让出CPU,给其他线程执行的机会
 
