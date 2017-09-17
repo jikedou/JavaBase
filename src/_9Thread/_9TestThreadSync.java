@@ -19,8 +19,8 @@ public class _9TestThreadSync implements Runnable {
 
 //    @Override
     public void run() {
-//        System.out.println("run方法运行了");
-//        System.out.println(Thread.currentThread().getName()+"");
+        System.out.println("run方法运行了");
+        System.out.println(Thread.currentThread().getName()+"");
         timer.add(Thread.currentThread().getName()+"");
     }
 }
