@@ -951,3 +951,20 @@ interface接口
 
             run方法已结束，线程就结束
 
+
+        synchronized 锁的机制
+
+        线程同步
+            在java语言中，引入了对象互斥锁的概念，保证共享数据操作的完整性。每对对象都对应于一个可称为“互斥锁”的标记，这个标记保证在任一时刻，只能有一个线程访问该对象
+            关键字synchronized来与对象的互斥锁联系。当某个对象synchronized修饰时，表明该对象在任一时刻只能由一个线程访问
+                synchronized(this){
+                    num++;
+                    try{
+                        Thread.sleep(1);
+                    }catch(InteruptedException e){
+
+                    }
+                    System.out.println();
+                }
+            synchronized还可以放在方法声明中，表示整个方法为同步方法，例如
+                synchronized public void add(String name){}

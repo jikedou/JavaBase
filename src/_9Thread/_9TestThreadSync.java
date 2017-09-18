@@ -27,7 +27,7 @@ public class _9TestThreadSync implements Runnable {
 
 class Timer {
     private static int i=0;
-    public static void add(String name) {
+    synchronized public  void add(String name) {
         i++;
         try {
             Thread.sleep(1);
