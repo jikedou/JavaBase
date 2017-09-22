@@ -1000,3 +1000,4 @@ interface接口
             client指定ip，端口号，申请连接
             server接受连接
 
+            readUTF()是阻塞式的
