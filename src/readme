@@ -874,7 +874,7 @@ interface接口
         ======什么叫方法调用，什么叫线程启动
 
         创建线程有两种方式
-            1.继承Thread类（实际上Thread类也实现了Runnable方法）
+            1.继承Thread类（实际上Thread类也实现了Runnable方法），重写了run方法
                 class PrimeThread extends Thread {
                      long minPrime;
                      PrimeThread(long minPrime) {
